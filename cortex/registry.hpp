@@ -37,7 +37,7 @@ class Registry
 
     template<typename charT, typename traits>
     std::basic_ostream<charT, traits>&
-    dump(std::basic_ostream<charT, traits>& os, const std::size_t n = size_max) const;
+    dump(std::basic_ostream<charT, traits>& os) const;
 
     Registry(const Registry&) = default;
     Registry(Registry&&) = default;
@@ -71,9 +71,17 @@ Registry::make_hex(std::basic_ostream<charT, traits>& os, const std::uint8_t v) 
 
 template<typename charT, typename traits>
 std::basic_ostream<charT, traits>&
-Registry::dump(std::basic_ostream<charT, traits>& os, const std::size_t n) const
+Registry::dump(std::basic_ostream<charT, traits>& os) const
 {
-    const std::size_t e = std::min(n, this->registry_.size());
+    std::size_t e = 0;
+    for(auto iter = this->registry_.crbegin(); iter != this->registry_.crend(); ++iter)
+    {
+        if(*iter != 0)
+        {
+            e = std::distance(iter, this->registry_.crend());
+            break;
+        }
+    }
 
     for(std::size_t i = 0; i < e; ++i)
     {

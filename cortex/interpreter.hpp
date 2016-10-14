@@ -127,8 +127,7 @@ void Interpreter::dump(std::basic_ostream<charT, traits>& output) const
         output << ' ';
     output << '^' << std::endl;
 
-    const std::size_t memory_length = instruction_.count_memory();
-    registry_.dump(output, memory_length);
+    registry_.dump(output);
     output << std::endl;
     const Registry::const_iterator current = data_ptr;
     const std::size_t dist_data =

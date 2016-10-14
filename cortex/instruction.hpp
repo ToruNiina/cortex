@@ -20,7 +20,6 @@ class Instruction
     // jump from [/] to ]/[
     const_iterator jump(const const_iterator bracket) const;
     void append(const std::string& operation);
-    std::size_t count_memory() const;
 
     template<typename charT, typename traits>
     void dump(std::basic_ostream<charT, traits>& output) const;
@@ -28,7 +27,6 @@ class Instruction
     std::size_t size() const {return instructions_.size();}
     bool empty() const {return instructions_.empty();}
     void clear() {instructions_.clear();}
-    std::size_t count(const char op) const;
     void resize(const std::size_t i) {instructions_.resize(i);}
     void reserve(const std::size_t i) {instructions_.reserve(i);}
     void push_back(const char c) {instructions_.push_back(c);}
