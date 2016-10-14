@@ -22,15 +22,6 @@ class Cortex
     Interpreter interpreter_;
 };
 
-inline void Cortex::run()
-{
-    return;
-}
-
-inline void Cortex::execute()
-{
-    interpreter_.exec(std::cin, std::cout);
-}
 
 } // cortex
 #endif /* CORTEX_CORTEX */
