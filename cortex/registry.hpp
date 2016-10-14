@@ -19,6 +19,8 @@ class Registry
     Registry() : registry_(30000, 0){}
     ~Registry() = default;
 
+    void clear();
+
     iterator       begin()        {return registry_.begin();}
     iterator       end()          {return registry_.end();}
     const_iterator cbegin() const {return registry_.cbegin();}
@@ -46,6 +48,13 @@ class Registry
     constexpr static std::size_t size_max = std::numeric_limits<std::size_t>::max();
     std::vector<std::uint8_t> registry_;
 };
+
+inline void Registry::clear()
+{
+    for(auto iter = registry_.begin(); iter != registry_.end(); ++iter)
+        *iter = 0;
+    return;
+}
 
 template<typename charT, typename traits>
 std::basic_ostream<charT, traits>&
