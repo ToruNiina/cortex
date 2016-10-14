@@ -11,7 +11,7 @@ void Cortex::run()
     };
     while(true)
     {
-        std::cout << "cortex)";
+        std::cout << "cortex) ";
         std::string command;
         std::cin >> command;
         if(command == "exit" || command == "quit" || command == "bye")
