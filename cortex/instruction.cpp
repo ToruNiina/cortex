@@ -5,6 +5,11 @@ namespace cortex
 {
 Instruction::Instruction(const std::string& inst)
 {
+    this->append(inst);
+}
+
+void Instruction::append(const std::string& inst)
+{
     auto is_brainfuck = [](const char c){
         return (c == '+') || (c == '-') || (c == '<') || (c == '>') ||
                (c == '.') || (c == ',') || (c == '[') || (c == ']');
@@ -12,6 +17,7 @@ Instruction::Instruction(const std::string& inst)
     for(auto iter = inst.cbegin(); iter != inst.cend(); ++iter)
         if(is_brainfuck(*iter))
             this->instructions_.push_back(*iter);
+    return;
 }
 
 Instruction::const_iterator
