@@ -3,6 +3,7 @@
 #include "instruction.hpp"
 #include "registry.hpp"
 #include <iostream>
+#include <stdexcept>
 
 namespace cortex
 {
@@ -19,6 +20,12 @@ class Interpreter
     Interpreter(const Instruction& inst, const Registry& reg)
         : instruction_(inst), registry_(reg){}
 
+    void init();
+    void clear();
+    void clear_memory(){registry_.clear();}
+    void clear_instruction(){instruction_.clear();}
+    void append(const std::string& str);
+
     template<typename charT, typename traits>
     void exec(std::basic_istream<charT, traits>& input,
               std::basic_ostream<charT, traits>& output);
@@ -30,6 +37,7 @@ class Interpreter
     template<typename charT, typename traits>
     void dump(std::basic_ostream<charT, traits>& output) const;
 
+
   private:
     Instruction::const_iterator instruction_ptr;
     Registry::iterator          data_ptr;
@@ -37,12 +45,31 @@ class Interpreter
     Registry                    registry_;
 };
 
+inline void Interpreter::init()
+{
+    instruction_ptr = instruction_.cbegin();
+    data_ptr = registry_.begin();
+    return;
+}
+
+inline void Interpreter::clear()
+{
+    this->clear_memory();
+    this->clear_instruction();
+    return;
+}
+
+inline void Interpreter::append(const std::string& str)
+{
+    instruction_.append(str);
+    return;
+}
+
 template<typename charT, typename traits>
 void Interpreter::exec(std::basic_istream<charT, traits>& input,
                        std::basic_ostream<charT, traits>& output)
 {
-    instruction_ptr = instruction_.cbegin();
-    data_ptr = registry_.begin();
+    this->init();
     while(this->step(input, output)){}
     return;
 }
