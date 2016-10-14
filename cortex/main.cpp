@@ -18,7 +18,12 @@ int main(int argc, char **argv)
             return 1;
         }
         std::string content;
-        ifs >> content;
+        while(!ifs.eof())
+        {
+            std::string buf;
+            std::getline(ifs, buf);
+            content += buf;
+        }
         cortex::Instruction inst(content);
         cortex::Cortex ctx(inst);
         ctx.execute();
