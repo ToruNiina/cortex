@@ -19,12 +19,35 @@ $ cortex source.bf
 $ cortex
 cortex) ++++++++++[>+++++++[>+>+>+<<<-]>>+>+<<<<-]>>>->-<<.>.>.
 cortex) run
-foo
+FOO
 cortex) dump
 ++++++++++[>+++++++[>+>+>+<<<-]>>+>+<<<<-]>>>->-<<.>.>.
                                                        ^
 |00|00|46|4F|4F|
              ^^
+cortex) exit
+```
+
+supported commands 
+
+| command          |                                                |
+|:-----------------|:-----------------------------------------------|
+| (brainfuck code) | append code                                    |
+| run              | run the code                                   |
+| run-stepwise     | run the code and dump step and step            |
+| dump             | dump data and instruction and its ptrs         |
+| clear            | clear data and instruction                     |
+| exit             | exit cortex. you can use quit and bye instread |
+
+## Build
+
+use CMake.
+
+```sh
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
 ```
 
 ## Licensing Terms
