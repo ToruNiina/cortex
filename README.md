@@ -1,13 +1,13 @@
 Cortex
 ====
 
-a brainfuck interpreter to run and understand brainfuck written in c++11.
+a brainfuck interpreter to run and understand `brainfuck` written in c++11.
 
 ## Usage
 
 ### Run Brainfuck code
 
-You can specify brainfuck source code as command line argument.
+You can specify a brainfuck source code file as a command line argument.
 
 ```sh
 $ cortex source.bf
@@ -28,20 +28,20 @@ cortex) dump
 cortex) exit
 ```
 
-supported commands 
+The supported commands are below.
 
-| command          |                                                |
-|:-----------------|:-----------------------------------------------|
-| (brainfuck code) | append code                                    |
-| run              | run the code                                   |
-| run-stepwise     | run the code and dump step and step            |
-| dump             | dump data and instruction and its ptrs         |
-| clear            | clear data and instruction                     |
-| exit             | exit cortex. you can use quit and bye instread |
+| command          | function                                          |
+|:-----------------|:--------------------------------------------------|
+| (brainfuck code) | append code                                       |
+| run              | run the code                                      |
+| run-stepwise     | run the code and dump step and step               |
+| dump             | dump data and instruction and its ptrs            |
+| clear            | clear data and instruction                        |
+| exit             | exit cortex. you can use `quit` or `bye` instread |
 
 ## Build
 
-use CMake.
+using CMake.
 
 ```sh
 $ mkdir build
