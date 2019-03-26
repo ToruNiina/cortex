@@ -1,4 +1,4 @@
-#include "cortex.hpp"
+#include "cortex/cortex.hpp"
 #include <fstream>
 
 int main(int argc, char **argv)
