@@ -29,10 +29,10 @@ class Registry
         std::fill(this->begin(), this->end(), 0);
     }
 
-    iterator       begin()        {return registry_.begin();}
-    iterator       end()          {return registry_.end();}
-    const_iterator cbegin() const {return registry_.cbegin();}
-    const_iterator cend()   const {return registry_.cend();}
+    iterator       begin()        noexcept {return registry_.begin();}
+    iterator       end()          noexcept {return registry_.end();}
+    const_iterator cbegin() const noexcept {return registry_.cbegin();}
+    const_iterator cend()   const noexcept {return registry_.cend();}
 
     std::uint8_t  at(const std::size_t i) const {return registry_.at(i);}
     std::uint8_t& at(const std::size_t i)       {return registry_.at(i);}
