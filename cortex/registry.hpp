@@ -4,6 +4,7 @@
 #include <limits>
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 #include <cstdint>
 
 namespace cortex
@@ -16,10 +17,14 @@ class Registry
     using const_iterator = std::vector<std::uint8_t>::const_iterator;
 
   public:
+
     Registry() : registry_(30000, 0){}
     ~Registry() = default;
 
-    void clear();
+    void clear()
+    {
+        std::fill(this->begin(), this->end(), 0);
+    }
 
     iterator       begin()        {return registry_.begin();}
     iterator       end()          {return registry_.end();}
@@ -45,47 +50,23 @@ class Registry
     Registry& operator=(Registry&&) = default;
 
   private:
-    constexpr static std::size_t size_max = std::numeric_limits<std::size_t>::max();
     std::vector<std::uint8_t> registry_;
 };
 
-inline void Registry::clear()
-{
-    for(auto iter = registry_.begin(); iter != registry_.end(); ++iter)
-        *iter = 0;
-    return;
-}
-
-template<typename charT, typename traits>
-std::basic_ostream<charT, traits>&
-Registry::make_hex(std::basic_ostream<charT, traits>& os, const std::uint8_t v) const
-{
-    const std::uint8_t second = v % 16;
-    const std::uint8_t first = (v - second) / 16;
-    auto hexagonal = [](const std::uint8_t v){
-        return (v < 10) ? static_cast<charT>(v + 48) : static_cast<charT>(v + 55);
-    };
-    os << hexagonal(first) << hexagonal(second);
-    return os;
-}
 
 template<typename charT, typename traits>
 std::basic_ostream<charT, traits>&
 Registry::dump(std::basic_ostream<charT, traits>& os) const
 {
-    std::size_t e = 0;
-    for(auto iter = this->registry_.crbegin(); iter != this->registry_.crend(); ++iter)
-    {
-        if(*iter != 0)
-        {
-            e = std::distance(iter, this->registry_.crend());
-            break;
-        }
-    }
+    const std::size_t e = std::distance(std::find_if(
+        this->registry_.crbegin(), this->registry_.crend(),
+        [](const std::uint8_t c) noexcept -> bool {
+            return c != 0;
+        }), this->registry_.crend());
 
     for(std::size_t i = 0; i < e; ++i)
     {
-        os << "|"; this->make_hex(os, this->registry_.at(i));
+        os << "|" << std::hex << std::setw(2) << std::setfill('0') << int(this->registry_.at(i));
     }
     os << "|";
     return os;
